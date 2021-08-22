@@ -74,42 +74,29 @@ class Kernel
             $url = $this->getUrl();
             unset($_GET['url']);
 
-            //(EN) Search in Controllers if the called controller exists.
-            //(ES) Buscar en Controladores si el controlador llamado existe.
             if (file_exists(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . ucwords($url[0]) . '.php')) {
 
-                // (EN) If the controller exists it is set as the default controller.
-                // (ES) Si el controlador existe se setea como controlador por defecto.
                 $this->currentController = ucwords($url[0]);
-                //Unset index
                 unset($url[0]);
 
 
                 if (file_exists(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . ucwords($this->currentController) . '.php')) {
-                    // (EN) Require controller
-                    // (ES) Requerir el controlador
                     require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'Controllers' . DIRECTORY_SEPARATOR . ucwords($this->currentController) . '.php';
                     $this->currentController = new $this->currentController;
                 }
-                // (EN) Check the second part of the url, the method the action.
-                // (ES) Chequear la segunda parte de la url, el método la acción.
+
                 if (isset($url[1])) {
                     if (method_exists($this->currentController, $url[1])) {
-                        //Chequeamos el método
+
                         $this->currentMethod = $url[1];
                         unset($url[1]);
                     }
                 }
-
-                // (EN) Get parameters
-                // (ES) Obtener parametros
                 $this->parameters = $url ? array_values($url) : [];
 
-                // (EN) Callback with an array of parameters.
-                // (ES) Llamada de retorno con un array de parámetros.
                 call_user_func_array([$this->currentController, $this->currentMethod], $this->parameters);
             } else {
-                //Buscar en Conttroladores si el controlador llamado existe en Modules
+
                 //Module
                 $this->module = (isset($url[0]) && !empty($url[0])) ? ucwords($url[0]) : null;
                 //Controller
@@ -121,11 +108,9 @@ class Kernel
 
                 $this->manager = new ModuleManager($modulePath);
 
-                // (EN) Check that the module and its package exist
-                // (ES) Comrpobar que el módulo y su paquete existe
+
                 if (file_exists($this->manager->plugins_path . $this->module . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . $this->controller . ".php")) {
-                    //(ES) Cargador de clases de módulo
-                    //modelsLoader();
+
                     Roy::moduleLoader($this->manager->plugins_path . $this->module . DIRECTORY_SEPARATOR);
 
                     $this->defaultMethod = ($this->manager->list_plugins[$this->module]['default_method'] != NULL) ? $this->manager->list_plugins[$this->module]['default_method'] : 'index';
