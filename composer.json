@@ -1,0 +1,21 @@
+{
+  "name": "plenusservices/roy-rest",
+  "description": "REST Framework",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Juan Bautista",
+      "email": "soyjuanbautista0@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "RoyRest\\": "src/",
+      "App\\": "App/"
+    }
+  },
+  "require": {
+    "php": "^7.3|^8.0"
+  }
+}

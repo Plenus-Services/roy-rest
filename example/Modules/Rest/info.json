@@ -1,0 +1,14 @@
+{
+    "detalles": {
+      "name": "Rest",
+      "package": "Rest",
+      "default_controller": "Roy",
+      "default_method": "index",
+      "author": "Juan bautista",
+      "version": "1.0",
+      "url": "",
+      "desc": "(ES) Módulo de ejemplo. \n (EN) Example module.",
+      "status": "activo",
+      "mant_mode": false
+    }
+  }
