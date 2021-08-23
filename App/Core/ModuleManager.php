@@ -63,8 +63,9 @@ class ModuleManager
 
     private function PluginDetails(array $plugins): array
     {
+        $this->details = [];
         if (count($plugins) > 0) :
-            $this->details = array();
+
             foreach ($plugins as $plugin) {
                 if ($plugin != "Views" && file_exists($this->plugins_path . $plugin . DIRECTORY_SEPARATOR . "info.json")) {
                     $i =  json_decode(file_get_contents($this->plugins_path . $plugin . DIRECTORY_SEPARATOR . "info.json"), true)['detalles'];
@@ -75,6 +76,7 @@ class ModuleManager
             }
             return $this->details;
         endif;
+        return $this->details;
     }
 
     public function PluginDetail(string $plugin): array
