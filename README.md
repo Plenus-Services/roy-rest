@@ -1,4 +1,4 @@
-# roy-rest
+# Roy REST
 REST framework
 
 Install:
