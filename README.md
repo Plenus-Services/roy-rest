@@ -1,6 +1,6 @@
 # Roy REST
 
-REST framework
+REST framework dependency
 
 Install:
 
