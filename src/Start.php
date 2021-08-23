@@ -15,7 +15,7 @@ class Start
      * (EN) Environment configuration
      * (ES) Configuración de entorno
      */
-    public function __construct(string $modulePath, array $environmentConfig =[])
+    public function __construct(string $modulePath, array $environmentConfig = [])
     {
         return new Kernel($modulePath, $environmentConfig);
     }
