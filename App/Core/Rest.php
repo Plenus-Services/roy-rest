@@ -1,8 +1,8 @@
 <?php
 
-use App\Core\Roy;
+namespace App\Core;
+
 
 class Rest extends Roy
 {
-    
 }
