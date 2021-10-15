@@ -43,9 +43,10 @@ class Roy
      * @param int $code (EN) Http Code
      * @param string $format json, xml
      * @param function $callback
+     * @param string $rootName (EN) name data object
      * @return void
      */
-    public static function Response(array $data, int $code = 200, string $format = 'json', $callback = false)
+    public static function Response(array $data, int $code = 200, string $format = 'json', $callback = false, $rootName="root")
     {
         (isset($data['code']) && $code == 200)? http_response_code($data['code']):http_response_code($code);
         
@@ -58,10 +59,8 @@ class Roy
             case 'xml':
             header("Content-type: application/xml");
                 //function defination to convert array to xml
-
-
                     //creating object of SimpleXMLElement
-                    $document = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><root></root>');
+                    $document = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="no" ?><'.$rootName.'></'.$rootName.'>');
 
                     //function call to convert array to xml
                     self::array_to_xml($data,$document);
