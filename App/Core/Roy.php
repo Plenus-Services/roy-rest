@@ -46,11 +46,11 @@ class Roy
      * @param string $rootName (EN) name data object
      * @return void
      */
-    public static function Response(array $data, $code = 200, string  $format = 'json', $callback = false, $rootName = "root")
+    public static function Response(array | object $data, $code = 200, string  $format = 'json', $callback = false, $rootName = "root")
     {
         function fixArrayKey(&$arr)
         {
-            $arr = array_combine(
+           $arr = array_combine(
                 array_map(
                     function ($str) {
                         return str_replace(" ", "_", $str);
@@ -65,6 +65,7 @@ class Roy
                     fixArrayKey($arr[$key]);
                 }
             }
+            return $arr;
         }
         $data=  fixArrayKey($data);
         (isset($data['code']) && $code == 200) ? http_response_code($data['code']) : http_response_code($code);
@@ -108,7 +109,7 @@ class Roy
         throw new Exception($message, $code);
     }
 
-    private static function array_to_xml($array, &$document)
+    private static function array_to_xml(array | object $array, &$document)
     {
         foreach ($array as $key => $value) {
             if (is_array($value)) {
