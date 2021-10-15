@@ -46,29 +46,29 @@ class Roy
      * @param string $rootName (EN) name data object
      * @return void
      */
-    public static function Response(array $data, int $code = 200, string $format = 'json', $callback = false, $rootName="root")
+    public static function Response(array $data, $code = 200, string  $format = 'json', $callback = false, $rootName = "root")
     {
-        (isset($data['code']) && $code == 200)? http_response_code($data['code']):http_response_code($code);
-        
-        
+        (isset($data['code']) && $code == 200) ? http_response_code($data['code']) : http_response_code($code);
+
+
         switch ($format) {
             case 'json':
                 header('Content-Type: application/json;charset=utf-8');
                 echo json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
                 break;
             case 'xml':
-            header("Content-type: application/xml");
+                header("Content-type: application/xml");
                 //function defination to convert array to xml
-                    //creating object of SimpleXMLElement
-                    $document = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="no" ?><'.$rootName.'></'.$rootName.'>');
+                //creating object of SimpleXMLElement
+                $document = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="no" ?><' . $rootName . '></' . $rootName . '>');
 
-                    //function call to convert array to xml
-                    self::array_to_xml($data,$document);
+                //function call to convert array to xml
+                self::array_to_xml($data, $document);
 
-                    //saving generated xml file
-                    echo $document->asXML();
+                //saving generated xml file
+                echo $document->asXML();
 
-                   
+
                 /*
                 array_walk_recursive($data, array($xml, 'addChild'));
                 echo $xml->asXML();*/
@@ -89,18 +89,19 @@ class Roy
         throw new Exception($message, $code);
     }
 
-    private static function array_to_xml($array, &$document) {
-        foreach($array as $key => $value) {
-            if(is_array($value)) {
-                if(!is_numeric($key)){
+    private static function array_to_xml($array, &$document)
+    {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                if (!is_numeric($key)) {
                     $subnode = $document->addChild("$key");
-                   self::array_to_xml($value, $subnode);
-                }else{
+                    self::array_to_xml($value, $subnode);
+                } else {
                     $subnode = $document->addChild("item$key");
                     self::array_to_xml($value, $subnode);
                 }
-            }else {
-                $document->addChild("$key",htmlspecialchars("$value"));
+            } else {
+                $document->addChild("$key", htmlspecialchars("$value"));
             }
         }
     }
