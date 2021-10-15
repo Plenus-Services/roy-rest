@@ -48,6 +48,25 @@ class Roy
      */
     public static function Response(array $data, $code = 200, string  $format = 'json', $callback = false, $rootName = "root")
     {
+        function fixArrayKey(&$arr)
+        {
+            $arr = array_combine(
+                array_map(
+                    function ($str) {
+                        return str_replace(" ", "_", $str);
+                    },
+                    array_keys($arr)
+                ),
+                array_values($arr)
+            );
+
+            foreach ($arr as $key => $val) {
+                if (is_array($val)) {
+                    fixArrayKey($arr[$key]);
+                }
+            }
+        }
+        $data=  fixArrayKey($data);
         (isset($data['code']) && $code == 200) ? http_response_code($data['code']) : http_response_code($code);
 
 
