@@ -39,13 +39,13 @@ class Roy
 
 
     /**
-     * @param array $data
-     * (EN) Array values
-     * @param int $code
-     * (EN) Http Code
+     * @param array $data (EN) Array values
+     * @param int $code (EN) Http Code
+     * @param string $format json, xml
+     * @param function $callback
      * @return void
      */
-    public static function Response(array $data, $code = 200, string $format = 'json', $callback = false)
+    public static function Response(array $data, int $code = 200, string $format = 'json', $callback = false)
     {
         (isset($data['code']) && $code == 200)? http_response_code($data['code']):http_response_code($code);
         
