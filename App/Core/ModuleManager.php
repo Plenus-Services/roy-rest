@@ -67,9 +67,9 @@ class ModuleManager
         if (count($plugins) > 0) :
 
             foreach ($plugins as $plugin) {
-                if ($plugin != "Views" && file_exists($this->plugins_path . $plugin . DIRECTORY_SEPARATOR . "info.json")) {
-                    $i =  json_decode(file_get_contents($this->plugins_path . $plugin . DIRECTORY_SEPARATOR . "info.json"), true)['detalles'];
-                    if ($i["status"] != "inactivo" && $i["status"] != "inactive") :
+                if ($plugin != "Views" && file_exists($this->plugins_path . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "info.json")) {
+                    $i =  json_decode(file_get_contents($this->plugins_path . DIRECTORY_SEPARATOR . $plugin . DIRECTORY_SEPARATOR . "info.json"), true)['detalles'];
+                    if (in_array($i["status"], ["active","enable", "activo", "start"]) ) :
                         $this->details[$i["package"]] =  $i;
                     endif;
                 }

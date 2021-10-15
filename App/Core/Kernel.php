@@ -108,15 +108,14 @@ class Kernel
 
                 $this->manager = new ModuleManager($modulePath);
 
-
                 if (file_exists($this->manager->plugins_path . $this->module . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . $this->controller . ".php")) {
+                    require_once $this->manager->plugins_path . $this->module . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . $this->controller . ".php";
 
                     Roy::moduleLoader($this->manager->plugins_path . $this->module . DIRECTORY_SEPARATOR);
 
-                    $this->defaultMethod = ($this->manager->list_plugins[$this->module]['default_method'] != NULL) ? $this->manager->list_plugins[$this->module]['default_method'] : 'index';
-
+                    $this->defaultMethod = ($this->manager->list_plugins[$this->module]['default_method'] != NULL) ?$this->manager->list_plugins[$this->module]['default_method'] : 'index';
                     $this->controller              = str_replace('/', '\\',  "Modules/" . $this->module . DIRECTORY_SEPARATOR . "Controllers" . DIRECTORY_SEPARATOR . $this->controller);
-                    $this->controller              = new $this->controller($this->info);
+                    $this->controller              = new $this->controller();
                     $this->controller->pathModule = $this->manager->plugins_path . $this->module . DIRECTORY_SEPARATOR;
                     $this->controller->module      = $this->module;
 
