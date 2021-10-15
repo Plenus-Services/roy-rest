@@ -61,7 +61,7 @@ class Roy
 
 
                     //creating object of SimpleXMLElement
-                    $document = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><root></root>');
+                    $document = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" standalone="yes"?><root></root>');
 
                     //function call to convert array to xml
                     self::array_to_xml($data,$document);
